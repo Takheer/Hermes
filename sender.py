@@ -11,6 +11,8 @@ import pandas as pd
 import smtplib
 import sys
 from configparser import ConfigParser
+from email.mime.text import MIMEText
+from email.header    import Header
 # import FileParser
  
 class Sender:
@@ -82,8 +84,8 @@ class Sender:
                 login = self.getAddresser()[0]
                 password = self.getAddresser()[1]
                 #smtpObj.login(login, password)
-                msg = "Dear " + studentName + "! Here is your grades, they are going to your email address: " + studentEmail + "\n\n"
                 # пытаемся составить сообщение
+                msg = MIMEText(self.getMessage(), 'plain', 'utf-8')
                 for i in range(len(self.__gradeTable.columns)):
                     msg += (self.__gradeTable.columns[i] + ": " + str(student[i]) + "\n")
                 
